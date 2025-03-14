@@ -1,0 +1,96 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
+
+    <title>Portfolio Personnelle</title>
+</head>
+
+<body>
+    <!-- La tete du page-->
+    <!-- partie header-->
+    <header class="header">
+        <a href="../index.html" class="logo">METHYDEV.</a>
+        <nav class="navbar">
+            <a href="../index.html">Home</a>
+            <a href="../Service/service.html">Services</a>
+
+            <a href="#" class="active">Contact</a>
+        </nav>
+    </header>
+    <!-- Partie central des mon page -->
+    <!-- la partie section-->
+    <section class="contact">
+        <!-- Contact-->
+        <div class="form_container">
+            <!--Contact form-->
+            <div class="form contact_form">
+                <form name="Methy" enctype="multipart/form-data" onsubmit="return double()" method="post" id="contactForm">
+                    <h2>Contact</h2>
+                    <p> Comment avez-vous trouvé mon portfolio <br> votre avis m'aideras énormement a dévéloppé mon site merci</p>
+
+                    <p><span id="result" class="result"></span></p>
+                    <div class="input_box">
+                        <input type="text" name="Nom" id="name" placeholder="Nom Complet" required>
+                    </div>
+
+                    <div class="input_box">
+                        <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="input_box">
+                        <textarea name="messange" id="comment" placeholder="Commentaire" required></textarea>
+                    </div>
+            </div><br>
+            <input type="submit" value="Envoye" class="button" />
+
+            </form>
+            <script>
+                document.getElementById('contactForm').addEventListener('submit', async(e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.target);
+                    const data = Object.fromEntries(formData);
+                    const response = await fetch('/send-email', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data),
+                    });
+                    alert(await response.text());
+                });
+            </script>
+            <script src="server.js"></script>
+        </div>
+        </i>
+        </div>
+    </section>
+    <!-- Le Pied de mon page-->
+
+    <!--le footer-->
+    <footer class="footer">
+
+        <p class="langue">
+            <p class="lang">
+                <a href="#">Services clients <img src="../Image/service-svgrepo-com.png" class="Image " alt="image"></a>
+
+                <br><a href="#"> Conditions d'utilisation</a> <br>
+                <a href="About/about.html">Apropos des nous</a><br>
+
+                <a href="#">Blog</a> <br>
+
+                <a href="http://www.facebook.com/profil.php?id=100071677927346&mibextid=ZbWKwl" class="liens"> <img src="../Image/facebook-svgrepo-com.png" class="Image " alt="facebook"></a>
+                <a href="http://" class="liens"><img src="../Image/twitter-154-svgrepo-com.png" class="Image " alt="Twitter"></a>
+                <a href="http://" class="liens"> <img src="../Image/youtube-svgrepo-com.png" class="Image " alt="youtube"></a>
+            </p>
+        </p>
+
+        <p class="copy">&copy; METHYCHELLA 2024 </p>
+    </footer>
+    <!-- Fin de la partie footer -->
+</body>
+
+</html>

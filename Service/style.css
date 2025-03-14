@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    color: #ededed;
+    background: url('../Image/Poster_1721726287903.jpg') no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* La tete de mon page*/
+
+
+/* la partie header*/
+
+.header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 20px 10%;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 25px;
+    color: #ededed;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.logo:hover {
+    border-bottom: 1px solid #ededed;
+    border-radius: 2%;
+}
+
+.logo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: #081b29;
+    animation: showRight 1s ease forwards;
+    animation-delay: .4s;
+}
+
+.navbar a {
+    font-size: 18px;
+    color: #ededed;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 35px;
+    transition: .3s;
+}
+
+.navbar a:hover,
+.navbar a.active {
+    color: #00abf0;
+    border: none;
+    border-top: solid 1px #ededed;
+    border-radius: 5px;
+    border-spacing: 10px;
+    transition: .5s;
+}
+
+
+/* Section Service*/
+
+#services {
+    padding: 15rem 0;
+    z-index: 100;
+}
+
+#services .section-heading {
+    text-align: center;
+    font-size: 3rem;
+    font-family: 'Times New Roman', Times, serif;
+    letter-spacing: 3px;
+}
+
+#services .section-heading:hover {
+    border-bottom: 1px solid #ededed;
+    border-radius: 2%;
+}
+
+#services .all-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 4%;
+}
+
+.services1 {
+    border-bottom: #ededed 1px solid;
+}
+
+#services .item {
+    padding: 1.8rem;
+    border-radius: 12px;
+}
+
+#services .item:nth-child(1):hover {
+    background-color: rgba(241, 113, 8, 0.35);
+    border-top: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
+}
+
+#services .item:nth-child(2):hover {
+    background-color: rgba(0, 183, 255, 0.151);
+    border-top: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
+}
+
+#services .item:nth-child(3):hover {
+    background-color: #fdec5193;
+    border-top: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
+}
+
+.item-image {
+    position: relative;
+    display: inline-flex;
+    width: 70px;
+    height: 60px;
+    background: transparent;
+    border-radius: 50%;
+    z-index: 100;
+    overflow: hidden;
+    letter-spacing: 10px;
+    transition: .5s;
+}
+
+#services .item-heading {
+    font-weight: 500;
+    font-size: 2rem;
+    font-family: 'Poppins', sans-serif;
+    max-width: 30%;
+}
+
+#services .item-desc {
+    font-weight: 300;
+    font-size: 13px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    max-width: 80%;
+}
+
+
+/* La partie footer*/
+
+footer {
+    border: none;
+    border-top: #ededed 1px solid;
+}
+
+footer {
+    left: 0;
+    right: 0;
+    display: flow-root;
+    width: 100%;
+    padding: 20px 3%;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+
+.langue {
+    font-size: 10px;
+    color: #ededed;
+    text-decoration: none;
+    font-weight: 200;
+    font-style: italic;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.lang {
+    font-size: 14px;
+    color: #ededed;
+    text-decoration: none;
+    font-weight: 300;
+    font-style: normal;
+    margin-left: 20px;
+    transition: .3s;
+}
+
+.lang a {
+    text-decoration: none;
+    color: aliceblue;
+    pointer-events: none;
+}
+
+.lang a:hover,
+.langue a:active {
+    color: #00abf0;
+    font-size: 13px;
+    transition: 0.5s;
+}
+
+.lang .image {
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border-radius: 50%;
+    z-index: 1;
+    overflow: hidden;
+    letter-spacing: 10px;
+    transition: .5s;
+    background-color: aliceblue;
+}
+
+.lang .image:hover {
+    width: 22px;
+    height: 22px;
+    background-color: #00abf0;
+}
+
+.copy {
+    text-align: center;
+}
+
+
+/* Fin de la parti Footer*/
+
+
+/* KEYFRAMES ANIMATION*/
+
+@keyframes showRight {
+    100% {
+        width: 0;
+    }
+}
