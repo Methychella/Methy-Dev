@@ -28,7 +28,7 @@
         <div class="form_container">
             <!--Contact form-->
             <div class="form contact_form">
-                <form name="Methy" enctype="multipart/form-data" onsubmit="return double()" method="post" id="contactForm">
+                <form name="Methy" action="https://formspree.io/f/mblgllyn" enctype="multipart/form-data" method="POST" id="contactForm">
                     <h2>Contact</h2>
                     <p> Comment avez-vous trouvé mon portfolio <br> votre avis m'aideras énormement a dévéloppé mon site merci</p>
 
@@ -53,17 +53,20 @@
                     e.preventDefault();
                     const formData = new FormData(e.target);
                     const data = Object.fromEntries(formData);
-                    const response = await fetch('/send-email', {
+                    const response = await fetch('http://localhost:3000/send-email', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(data),
                     });
-                    alert(await response.text());
+                    if (response.ok){
+                        alert("Messange envoyé avec succès !");
+                    }else{
+                        alert("Erreu lors de l'envoi messange");
+                    }
                 });
             </script>
-            <script src="server.js"></script>
         </div>
         </i>
         </div>
@@ -91,6 +94,7 @@
         <p class="copy">&copy; METHYCHELLA 2024 </p>
     </footer>
     <!-- Fin de la partie footer -->
+    <script src="server.js"></script>
 </body>
 
 </html>

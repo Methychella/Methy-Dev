@@ -1,77 +1,36 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const nodemailer = require('nodemailer');
+const express = require("express");
+const axios = require("axios");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+
 const app = express();
-const PORT = 3000;
-// Partie de la method de sauvegarde
-const fs = require('fs')
-const path = require('path');
+const port = 3000;
+
+//Middleware
 app.use(cors());
-app.post('/submit', (req, res) => {
-    const { name, email, comment } = req.body;
-    const newData = { name, email, comment, date: new Date().toISOString() };
-    const filePath = path.join(__dirname, 'responses.json');
-
-    fs.readFile(filePath, (err, data) => {
-        let responses = [];
-        if (!err && data.length > 0) {
-            responses.push(newData);
-
-            fs.writeFile(filePath, JSON.stringify(responses, null, 2), (err) => {
-                if (err) {
-                    console.error('Erreur lors de l\'enregistrement des données:', err);
-                    res.status(500).send('Erreur serveur');
-                } else {
-                    res.status(200).send('Données enregistrées avec succès !');
-                }
-            });
-        }
-    });
-
-});
-// Fin parti:!
-
-// Configuration pour parser le formulaire
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Route pour le formulaire
-app.post('/send-email', (req, res) => {
-    const { name, email, comment } = req.body;
-
-
-    // Configurer le transporteur
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'pangamethychella@gmail.com',
-            pass: 'Ghost01Mk',
-        },
-    });
-
-
-    // Contenu de l'email
-    const mailOptions = {
-        from: email,
-        to: 'pangamethychella',
-        subject: 'Nouveau messange du portfolio',
-        text: `Nom: ${name}\nEmail: ${email}\nMessange: ${comment}`,
-    };
-
-
-    //Envoi de l'email
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.log(error);
-            res.status(500).send('Erreur lors de l\'envoi de l\'email.');
-        } else {
-            console.log('Email envoyé: ' + info.responses);
-            res.status(200).send('Email Envoyé avec succès.');
+//Route pour envoyer le formulaire à Formspree
+app.post('/send-email', async(req, res) =>{
+    const {name, email, comment} = req.body;
+    
+    if (!name || !email || !comment) {
+        return res.status(400).json({error: "Tous le champs sont obligatoires"});
+    }
+    try{
+        const response = await axios.post('https://formspree.io/f/mblgllyn', {name, email, comment}, {headers: {'Accept': 'application/json'}});
+        if (response.status === 200) {
+            res.status(200).json({comment: "Messange envoyé avec succés"});
+        }else{
+            res.status(500).json({error: "Erreur lors de l'envoi du messange"});
         }
-    });
+    }catch(error){
+        console.error("Erreur Formspree:", error);
+        res.status(500).json({error: "Impossible d'envoyer le messange"});
+    }
+});
 
-});
-app.listen(PORT, () => {
-    console.log(`Serveur en cours d'execution sur http://localhost:${PORT}`);
-});
+//Lance le serveur
+app.listen(port, () =>{
+    console.log(`Serveur en écoute sur https://localhost:${port}`);
+})
