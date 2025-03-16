@@ -1,36 +1,49 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const axios = require('axios');
-const path = require('path');
+document.getElementById('contactForm').addEventListener('submit', async function(event){
+    event.preventDefault(); // Empeche le rechargement de la page
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+    //Recuperation des  valeurs du formulaire
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const comment = document.getElementById('comment').value.trim();
+    const errorMessage = document.getElementById('error-message');
 
-// Middleware pour servir des fichiers statiques
-app.use(express.static(path.join(__dirname)));
+    // Reinitialiser le messange d'ereur
+    errorMessage.textContent = "";
+    errorMessage.style.display ='none';
 
-// Middleware pour les requetes JSON et URL- encoded
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
+    // Véification des champs
+    if (!name || !email || !comment) {
+        errorMessage.textContent = 'Tous les champ doivent etre remplis.';
+        return;
+    }
 
-app.post('/contact', async (req, res) =>{
-    const {name, email, comment} = req.body;
-    
+    //Verification de l'email (simple)
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        errorMessage.textContent = 'Veuillez entrer une adresse email valide.';
+        errorMessage.style.display = 'block';
+        return;
+    }
+
+    const formData = new FormData(this);
+    const data = Object.fromEntries(formData.entries());
+
     try{
-        const response = await axios.post('https://formspree.io/f/mblgllyn', {name, email, comment}, {headers: {'Accept': 'application/json',},});
-        // Verifie si la requete a réussi
-        if (response === 200) {
-            return res.json({message: 'Messange envoyé avec success !'});
+        const response = await fetch('https://formspree.io/f/mblgllyn', {method: 'POST', headers:{'Accept': 'application/json',}, body: JSON.stringify(data),});
+
+        if (response.ok){
+            const result = await response.json();
+            alert('Messange envoyé avec succès !');
+            this.reset(); //Réinitialiser le formulaire
         }else{
-            return res.status(response.status).json({message: 'Erreur los de l\'envoi.'});
+            errorMessage.textContent = 'Erreur lors de l\'envoi du message.';
+
+            errorMessage.style.display = 'block';
         }
     }catch(error){
-        console.error(error);
-        return res.status(500).json({message: 'Erreur serveur'});
+        console.error('Erreur:', error);
+
+        errorMessage.textContent = 'Erreur serveur.';
+        errorMessage.style.display = 'block';
     }
-    });
-app.listen(PORT, () =>{
-    console.log(`Serveur à l\'écoute su le port http://localhost:${PORT}`);
 });

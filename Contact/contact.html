@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel="stylesheet">
 
     <title>Portfolio Personnelle</title>
@@ -28,7 +28,7 @@
         <div class="form_container">
             <!--Contact form-->
             <div class="form contact_form">
-                <form action="https://localhost:8080/contact"  method="POST" id="contactForm">
+                <form method="POST" id="contactForm">
                     <h2>Contact</h2>
                     <p> Comment avez-vous trouvé mon portfolio <br> votre avis m'aideras énormement a dévéloppé mon site merci</p>
 
@@ -44,32 +44,11 @@
                     <div class="input_box">
                         <textarea name="messange" id="comment" placeholder="Commentaire" required></textarea>
                     </div>
+                    <div id="error-message" class="error-message"></div>
             </div><br>
             <input type="submit" value="Envoye" class="button" />
 
             </form>
-            <script>
-                document.getElementById('contactForm').addEventListener('submit', async function(event){
-                    event.preventDefault(); // Empeche le recharger
-                    
-                    const formData = new FormData(this);
-                    const data = Object.fromEntries(formData.entries());
-
-                    try{
-                        const response = await fetch('http://localhost:3000/contact', { method: 'POST', headers: { 'Content-Type': 'application/json',}, body: JSON.stringify(data),});
-
-                        if (response.ok) {
-                            const result = await response.json();
-                            alert(result.message);
-                        }else{
-                            alert('Erreur lors de l\'envoi.');
-                        }
-                    }catch(error){
-                        console.error('Erreur:', error);
-                        alert('Erreur serveur.');
-                    }
-                });
-            </script>
         </div>
         </i>
         </div>
@@ -96,7 +75,7 @@
 
         <p class="copy">&copy; METHYCHELLA 2024 </p>
     </footer>
-    <script type="module" src="server.js"></script>
+    <script src="server.js"></script>
     <!-- Fin de la partie footer -->
 </body>
 
