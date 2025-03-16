@@ -8,7 +8,7 @@
 
 body {
     color: #ededed;
-    background: url('../Image/Poster_1721726287903.jpg') no-repeat;
+    background: url('Poster_1721726287903.jpg') no-repeat;
     background-size: cover;
     background-position: center;
 }
